@@ -8,6 +8,7 @@ class EcommerceBusinessFlowAgent(StructuredAnthropicChat):
         self.add_system_message(f"""You are an agent that will create a workflow of tasks based on business 
         info and also on what the user tells you needs to be in the workflow.
         **Business info**
+        {business_info}
         **Available Packages**
         {packages}
         **Important steps**

@@ -1,0 +1,1 @@
+This repository is a mock for the Jelou exercise. It contains workflow templates and documentation.

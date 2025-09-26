@@ -5,6 +5,6 @@ from ai.agents.Business.business_type import BusinessType
 
 # 1. Define your structured schema with Pydantic (or JSON schema)
 class EBusinessWorkflowStructure(BaseModel):
-    bot_response:str =Field(...,description="bot_response with business workflow so far.")
-    buisiness_workflow:str = Field(...,description="Business workflow")
+    bot_response:str =Field(...,description="Worfklow and bot response.")
+    business_workflow:str = Field(...,description="Business workflow")
     user_confirmed: bool = Field(description="If the user confirmed that the business workflow is correct")

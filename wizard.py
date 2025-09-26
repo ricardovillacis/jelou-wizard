@@ -27,19 +27,22 @@ class JelouWizard():
 
     async def start_wizard(self):
         try:
-            #business_info = self.basic_business_info()
-            business_info = """
-            'Q: Me podrias describir tu negocio?\nA: Rayros Motors es concesionario autorizado Yamaha, con presencia en Supía y Riosucio(occidente de Caldas, Colombia). Se especializa en la venta de motocicletas nuevas, repuestos y accesorios originales, además de ofrecer servicio técnico certificado. El propósito es brindar soluciones de movilidad confiables y un servicio cercano a la comunidad.\n\nQ: Que vendes? Como lo vendes?\nA: Venta de motocicletas Yamaha. Venta de repuestos y accesorios originales. Servicio técnico especializado con personal capacitado directamente por Yamaha. Créditos y financiación a través de Rayros Servicios Financieros.\n\nQ: Me podrias decir la ubicación/ubicaciones de tu negocio?\nA: No desea proporcionar la ubicación del negocio.\n\nQ: Qué es lo que hace tu negocio diferente?\nA: Son concesionarios autorizados Yamaha con respaldo de marca mundial. Brindan atención cercana y personalizada en municipios intermedios y rurales. Cuentan con servicio técnico certificado y técnicos capacitados por Yamaha. Tienen más de 10 años de experiencia en el sector. Ofrecen opciones de financiación flexibles mediante una fintech aliada.\n\nQ: ¿Que frases frecuentes usan tus clientes para referirse a tu negocio, tus producto/servicio?\nA: Los clientes llaman al negocio "Raycar".\n\nQ: ¿Cómo te conocen tus clientes?\nA: Known as Raycar by clients.\n\nQ: ¿Con que frases saludas a tus clientes? ¿Cómo quieres que se presente el Agente IA a tus clientes?\nA: No se utilizan frases especiales para saludar al cliente, se utilizan frases comunes.\n\nQ: Cual es el proposito de crear al agente(Vender productos, agente)\nA: El propósito de crear al agente es vender productos por WhatsApp.'
-            """
-            #business_type = self.check_business_info(business_info=business_info)
+            business_info = self.basic_business_info()
+            # business_info = """
+            # 'Q: Me podrias describir tu negocio?\nA: Rayros Motors es concesionario autorizado Yamaha, con presencia en Supía y Riosucio(occidente de Caldas, Colombia). Se especializa en la venta de motocicletas nuevas, repuestos y accesorios originales, además de ofrecer servicio técnico certificado. El propósito es brindar soluciones de movilidad confiables y un servicio cercano a la comunidad.\n\nQ: Que vendes? Como lo vendes?\nA: Venta de motocicletas Yamaha. Venta de repuestos y accesorios originales. Servicio técnico especializado con personal capacitado directamente por Yamaha. Créditos y financiación a través de Rayros Servicios Financieros.\n\nQ: Me podrias decir la ubicación/ubicaciones de tu negocio?\nA: No desea proporcionar la ubicación del negocio.\n\nQ: Qué es lo que hace tu negocio diferente?\nA: Son concesionarios autorizados Yamaha con respaldo de marca mundial. Brindan atención cercana y personalizada en municipios intermedios y rurales. Cuentan con servicio técnico certificado y técnicos capacitados por Yamaha. Tienen más de 10 años de experiencia en el sector. Ofrecen opciones de financiación flexibles mediante una fintech aliada.\n\nQ: ¿Que frases frecuentes usan tus clientes para referirse a tu negocio, tus producto/servicio?\nA: Los clientes llaman al negocio "Raycar".\n\nQ: ¿Cómo te conocen tus clientes?\nA: Known as Raycar by clients.\n\nQ: ¿Con que frases saludas a tus clientes? ¿Cómo quieres que se presente el Agente IA a tus clientes?\nA: No se utilizan frases especiales para saludar al cliente, se utilizan frases comunes.\n\nQ: Cual es el proposito de crear al agente(Vender productos, agente)\nA: El propósito de crear al agente es vender productos por WhatsApp.'
+            # """
             business_type = self.check_business_info(business_info=business_info)
-            #if business_type == BusinessType.e_commerce:
-            if True:
+            if business_type == BusinessType.e_commerce:
                 packages = self.fill_packages_inputs([self.conversational_flow_package, self.payment_method_package])
                 formatted = self.format_packages_as_calls(packages)
                 formatted =f"Paquete {self.database_package.name} sin inputs."+formatted
-                workflow  = self.create_ebusiness_workflow(business_info, formatted)
-                return workflow
+
+            else:
+                packages = self.fill_packages_inputs([self.conversational_flow_package])
+                formatted = self.format_packages_as_calls(packages)
+            workflow  = self.create_ebusiness_workflow(business_info, formatted)
+            return f"Business INFO:{business_info}\nFlujo:{workflow.business_workflow}"
+
         except Exception as e:
             print(f"Error in start_wizard: {e}")
             raise 
@@ -52,6 +55,8 @@ class JelouWizard():
         {"question":"¿Que frases frecuentes usan tus clientes para referirse a tu negocio, tus producto/servicio?"},
         {"question":"¿Cómo te conocen tus clientes?"},
         {"question":"¿Con que frases saludas a tus clientes? ¿Cómo quieres que se presente el Agente IA a tus clientes?"},
+        {"question":"¿Con que frases te despides a tus clientes?"},
+        {"question":"¿Cual quieres que sea el tono de conversación?"},
         {"question":"Cual es el proposito de crear al agente(Vender productos, agente)"}]
 
         answers = self.ask_questions(questions=questions)
