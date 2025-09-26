@@ -11,12 +11,9 @@ class QAAgent(StructuredAnthropicChat):
         -In user_description don't say "The user told that".
         -Don't write that the user doesn't want to add anything more.
         -Append to user description all the user has said minus that he doesn't want to add anything more.
+        -Talk in spanish.
         Question: {question}""")
         self.response_format = QuestionResponseStructure
-    
-    def send_message(self, content: str, max_tokens: int = 1000):
-        """Send a message and return the structured response."""
-        return self.send_structured_message(content, max_tokens, self.response_format)
     
     def get_model_assistant_message(self, model_response):
         return model_response.bot_response

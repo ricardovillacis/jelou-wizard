@@ -15,9 +15,10 @@ class StructuredAnthropicChat(AnthropicChat,ABC):
     
     def __init__(self):
         super().__init__()
-        self.client = instructor.from_anthropic(create=self.client)
+        self.client = instructor.from_anthropic(client=self.client)
+        self.response_format=None
 
-    def send_message(self, content: str, max_tokens: int = 1000, response_format: Optional[BaseModel] = None) -> str:
+    def send_message(self, content: str, max_tokens: int = 1000) -> str:
         # Add user message
         self.add_user_message(content)
 
@@ -26,13 +27,13 @@ class StructuredAnthropicChat(AnthropicChat,ABC):
             "model": self.model,
             "max_tokens": max_tokens,
             "messages": self.messages,
-            "response_model":response_format
+            "response_model":self.response_format
         }
 
-        response = self.client.chat.completions.create_with_completion(**request_params)
+        response = self.client.chat.completions.create_with_completion(model=self.model,max_tokens=max_tokens, messages=self.messages,response_model=self.response_format)
         model_response = response[0]                
         # Add assistant response to history
-        self.add_assistant_message(model_response)
+        self.add_assistant_message(self.get_model_assistant_message(model_response))
         
         return model_response    
     

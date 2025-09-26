@@ -9,9 +9,6 @@ class BusinessFlowAgent(StructuredAnthropicChat):
         info and also on what the user tells you needs to be in the workflow""")
         self.response_format = BusinessInfoStructure
     
-    def send_message(self, content: str, max_tokens: int = 1000):
-        """Send a message and return the structured response."""
-        return self.send_structured_message(content, max_tokens, self.response_format)
     
     def get_model_assistant_message(self, model_response):
         return model_response
