@@ -15,7 +15,7 @@ class EcommerceBusinessFlowAgent(StructuredAnthropicChat):
         -You will create a default workflow based on the business info using all available package with his inputs(inputs should be written as "input1=10") but also having in mind business info.
         -Tell the user the created workflow.
         -Ask the user if he want to modify the workflow when the default workflow is already created.
-        -Workflow should be in spanish
+        -Workflow should be in spanish.
         -Workflow should ordered steps.
         """)
         self.response_format = EBusinessWorkflowStructure
