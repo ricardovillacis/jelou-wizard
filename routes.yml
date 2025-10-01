@@ -1,0 +1,34 @@
+defaults:
+  whatsapp: "workflows/zabyca_workflow.wf"
+  web: "workflows/zabyca_workflow.wf"
+  
+routes:
+  - name: "zabyca_general"
+    description: "Consultas generales sobre servicios de ZABYCA y Odoo"
+    whatsapp: "workflows/zabyca_workflow.wf"
+    web: "workflows/zabyca_workflow.wf"
+    
+  - name: "zabyca_servicios" 
+    description: "Información sobre servicios de implementación, personalización y soporte"
+    whatsapp: "workflows/zabyca_workflow.wf"
+    web: "workflows/zabyca_workflow.wf"
+    
+  - name: "zabyca_modulos"
+    description: "Consultas sobre módulos específicos de Odoo"
+    whatsapp: "workflows/zabyca_workflow.wf"
+    web: "workflows/zabyca_workflow.wf"
+    
+  - name: "zabyca_cotizacion"
+    description: "Solicitud de cotización o propuesta comercial"
+    whatsapp: "workflows/zabyca_workflow.wf"
+    web: "workflows/zabyca_workflow.wf"
+    
+  - name: "zabyca_demo"
+    description: "Solicitud de demostración o reunión"
+    whatsapp: "workflows/zabyca_workflow.wf"
+    web: "workflows/zabyca_workflow.wf"
+    
+  - name: "zabyca_ubicaciones"
+    description: "Consulta sobre oficinas y ubicaciones físicas"
+    whatsapp: "workflows/zabyca_workflow.wf"
+    web: "workflows/zabyca_workflow.wf"

@@ -85,6 +85,8 @@ class JelouWizard():
         try:
             formatted = "No packages"
             business_info = self.basic_business_info()
+            # business_info = """**Me podrias describir tu negocio?**\nSocio estratégico experto en la transformación digital empresarial a través de Odoo. Especializados en implementación, personalización y consultoría de ERP, diseñando soluciones a medida alineadas con objetivos de negocio.\n\n**Que vendes? Como lo vendes?**\nImplementación, personalización, soporte y capacitación para Odoo ERP. Integración de módulos: Ventas, CRM, Inventario, Contabilidad, Compras, Nómina, Comercio electrónico, entre otros.\n\n**Me podrias decir la ubicación/ubicaciones de tu negocio?**\nQuito: Luxemburgo N34-80, Guayaquil: Bálsamos 112, Cuenca: Av. Ordóñez Lasso 5-60, Miami: 17861 NW 19TH Street, Pembroke Pines, FL 33029\n\n**Qué es lo que hace tu negocio diferente?**\nExperiencia probada, consultores expertos, metodología propia, módulos integrados, personalización y adaptabilidad, soporte continuo, tecnología actualizada, Primer Partner Gold Oficial de Odoo en Ecuador\n\n**¿Con que frases saludas a tus clientes? ¿Cómo quieres que se presente el Agente IA a tus clientes?**\nMúltiples opciones de saludo personalizadas como agente virtual de ZABYCA\n\n**¿Con que frases te despides a tus clientes?**\nVarias opciones de despedida cordial y profesional\n\n**¿Cual quieres que sea el tono de conversación?**\nAmigable, cercano, profesional, claro, entusiasta, confiable y paciente\n\n**¿Cual sera el flujo de trabajo propuesto?**\n1.Saludo y bienvenida 2.Descubrimiento de necesidades 3.Presentación de servicios/productos 4.Formulario envío de la información\n\n**¿Tienes algun mcp con información del negocio(Brinda el link)?**\nhttps://jelou-marketplace-w9xssz3s5tyx.deno.dev/mcp
+            # """
             business_type = self.check_business_info(business_info=business_info)
             if business_type == BusinessType.e_commerce:
                 packages = self.fill_packages_inputs([self.conversational_flow_package, self.payment_method_package])
@@ -105,7 +107,9 @@ class JelouWizard():
         {"question":"¿Con que frases saludas a tus clientes? ¿Cómo quieres que se presente el Agente IA a tus clientes?"},
         {"question":"¿Con que frases te despides a tus clientes?"},
         {"question":"¿Cual quieres que sea el tono de conversación?"},
-        {"question":"Cual es lo que se proposito de crear al agente(Vender productos, agente)"}]
+        {"question":"¿Cual sera el flujo de trabajo propuesto?"},
+        {"question:":"¿Tienes algun mcp con información del negocio(Brinda el link)?"}
+        ]
 
         answers = self.ask_questions(questions=questions)
         return self._format_answers(answers)
@@ -134,11 +138,13 @@ class JelouWizard():
                 continue
             print("")
             response = qa_agent.send_message(user_message)
-            print(response.bot_response+"\n")
 
             user_answer = response.user_description
             if response.all_questions_answered:
                 print(user_answer)
+                print(response.bot_response+"\n")
+            else:
+                print(response.bot_response+"\n")
             if response.finished:  # ya validó la respuesta
                 return response.updated_slots
 
@@ -159,13 +165,17 @@ class JelouWizard():
         still_responding = True
         ecom_business_agent = EcommerceBusinessFlowAgent(business_info, packages_info)
         response = ecom_business_agent.send_message("Dame el flujo de trabajo.")
+        print(getattr(response, "bot_response", ""))
         while(still_responding):
-            print(getattr(response, "bot_response", ""))
             user_message = input(">>>")
             response = ecom_business_agent.send_message(user_message)
             user_confirmed = bool(getattr(response, "user_confirmed", False))
             if response.user_want_workflow:
                 print(response.business_workflow)
+                print(getattr(response, "bot_response", ""))
+            else:
+                print(getattr(response, "bot_response", ""))
+
             if user_confirmed:
                 print(getattr(response, "bot_response", "")+"\n")
                 return response
