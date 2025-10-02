@@ -5,48 +5,17 @@ from wizard import JelouWizard
 import logging
 from opencode_ai import Opencode
 logging.getLogger("mcp_use").setLevel(logging.CRITICAL)
+def test() -> None:
 
-async def main() -> None:
-    # Initialize Jelou Wizard to get business context
-    jelou_wizard = JelouWizard()
-    print("Loading Packages...")
-    await jelou_wizard.init_packages()
-    print("Packages loaded ✓")
-    
-    business_context = await jelou_wizard.start_wizard()
-    print(f"Business context ready ✓")
-    
-    # Initialize opencode client and session
     client = Opencode(base_url="http://127.0.0.1:5000", timeout=httpx.Timeout(60000.0))
     session = client.session.create(extra_body={"title": "Workflow Builder Session"})
     
-    print(f"Created session: {session.id}")
-    print("=" * 60)
-    
-    # Send initial workflow creation request
-    print("🚀 Creating initial workflow from business context...")
-    initial_prompt = f"""Create a workflow in DSL format based on this business information:
-
-{business_context}
-
-Please create a complete workflow that follows the business flow and requirements specified above. The workflow should be in proper DSL format."""
-
-    workflow_response = client.session.chat(
-        id=session.id,
-        model_id="claude-sonnet-4-5-20250929",
-        provider_id="anthropic",
-        parts=[{"type": "text", "text": initial_prompt}],
-        timeout=httpx.Timeout(60000.0)
-    )
-    
-    # Display the created workflow
-    print("\n📋 Initial Workflow Created:")
     
     show_workflow_response = client.session.chat(
         id=session.id,
         model_id="claude-sonnet-4-5-20250929",
         provider_id="anthropic",
-        parts=[{"type": "text", "text": "Show me the workflow now, and when I modified the workflow I want you to show me the current workflow"}],
+        parts=[{"type": "text", "text": "Show me zabyca workflow"}],
         timeout=httpx.Timeout(60000.0)
     )
     show_opencode_response(show_workflow_response)
@@ -114,4 +83,4 @@ def show_opencode_response(response):
             else:
                 print("No response received from server")
 if __name__ == "__main__":
-    asyncio.run(main())
+    test()

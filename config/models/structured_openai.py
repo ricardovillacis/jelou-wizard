@@ -39,3 +39,4 @@ class StructuredOpenAIChat(OpenAIChat, ABC):
 
 
 
+

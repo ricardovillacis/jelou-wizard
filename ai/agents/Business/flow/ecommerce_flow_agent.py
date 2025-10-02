@@ -3,7 +3,7 @@ from ai.agents.Business.flow.ebusiness_workflow_structure import EBusinessWorkfl
 from config.models.structured_anthropic import StructuredAnthropicChat
 from config.models.structured_openai import StructuredOpenAIChat
 
-class EcommerceBusinessFlowAgent(StructuredOpenAIChat):
+class EcommerceFlowAgent(StructuredOpenAIChat):
     def __init__(self,business_info,packages):
         super().__init__()
         # self.add_system_message(f"""You are an agent that will create a ai agent workflow of tasks using for a chat e-business based on business 
@@ -40,17 +40,15 @@ class EcommerceBusinessFlowAgent(StructuredOpenAIChat):
         **Paquetes disponibles**
         {packages}
         **Pasos Importantes**
-        -Construye el flujo de trabajo tomando en cuenta el flujo de trabajo dentro de la información del negocio, no agregues funcionalidad extra.
-        -Si existe mcp dile que lo use buscar información especifica de la empresa o producto que da la empresa, especifica que el agente ai nunca debe inventarse nada.
-        -En caso de no tener mcp dile al agente que solo use información que tenga en su system prompt nada, que no se invente o asuma nada.
-        -El Chat debe ser guiado por un agente de IA, el agente sera el nucleo del chat, todo el flujo debe estar alineado con la interacción del usuario con el agente.
-        -Si hay paquetes disponibles debes usarlos primero y luego trata de aplicar la logica del flujo de trabajo del negocio.
+        -Usa el primer paquete
+        -Usa el segundo paquete luego del primero
+        -Usa la respuesta del segundo paquete para hacer un flujo condicional.
+        -Si la respuesta del segundo paquete es que el cliente quiere comprar conectalo con el tercer paquete.
         -SOLO los campos de los paquetes deben ser escritos como "input1=10", lo demas seran escritos en lenguaje natural. 
-        -Crea el flujo de trabajo en pasos specificos, no los generalizes.
         -Preguntale al usuario si quiere modificar su flujo de trabajo cuando termines de crearlo.
         -El flujo debe estar en español
         -El flujo debe ser ordenado
-        -Añade como nota importante:"No uses bloque inputs o mensajes con botones. Que los mensajes deben ser simples y directos".
+        -Añade como nota importante:"No uses bloque inputs o mensajes con botones. Di en las notas que los mensajes deben ser simples y directos".
         """)
 
         self.response_format = EBusinessWorkflowStructure

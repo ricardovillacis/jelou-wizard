@@ -18,7 +18,7 @@ class StructuredAnthropicChat(AnthropicChat,ABC):
         self.client = instructor.from_anthropic(client=self.client)
         self.response_format=None
 
-    def send_message(self, content: str, max_tokens: int = 3000) -> str:
+    def send_message(self, content: str, max_tokens: int = 6000) -> str:
         # Add user message
         self.add_user_message(content)
 

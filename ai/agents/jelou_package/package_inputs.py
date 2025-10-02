@@ -10,3 +10,4 @@ class PackageInputsStructure(BaseModel):
     all_inputs_filled: bool = Field(description="If all inputs are filled")
     user_confirmed: bool = Field(description="If the user confirmed the inputs after filling them")
     bot_response: str = Field(description="Bot response")
+    updated_slots: Dict[str, str] = Field(...,description="Inputs name as key and input values as values(full inputs text, don't simplified it)given by the user.")

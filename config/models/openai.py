@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 
 class OpenAIChat:
-    def __init__(self, model: str = "gpt-5"):
+    def __init__(self, model: str = "gpt-4.1"):
         # Load environment variables from .env if present
         if os.path.exists('.env'):
             from dotenv import load_dotenv
@@ -51,6 +51,7 @@ class OpenAIChat:
         assistant_content = response.choices[0].message.content if response.choices else ""
         self.add_assistant_message(assistant_content)
         return assistant_content
+
 
 
 

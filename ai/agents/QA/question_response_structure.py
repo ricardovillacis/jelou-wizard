@@ -7,4 +7,4 @@ class QuestionResponseStructure(BaseModel):
     bot_response:str = Field(..., description="Bot response.")
     all_questions_answered:bool = Field(..., description="All questions have been answered")
     finished :bool = Field(...,description="After all questions have been anweserd and  the user says that the info is correct.")
-    updated_slots: Dict[str, str] = Field(...,description="Questions as key(Write is as a section) and answers as values of what the user has answered(user answered with no info excluded).")
+    updated_slots: Dict[str, str] = Field(...,description="Questions as key(Write is as a section) and answers as values(full answers) of what the user has answered(user answered with no info excluded).")
