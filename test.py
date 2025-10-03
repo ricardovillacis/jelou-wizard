@@ -14,7 +14,7 @@ def test() -> None:
         id=session.id,
         model_id="claude-sonnet-4-5-20250929",
         provider_id="anthropic",
-        parts=[{"type": "text", "text": "Show me zabyca .wf file content(not summary, I need code)"}],
+        parts=[{"type": "text", "text": "Show me zabyca .wf file content(not text or summaries, I need code),also show me the .wf after every modification."}],
         timeout=httpx.Timeout(60000.0)
     )
     show_opencode_response(show_workflow_response)

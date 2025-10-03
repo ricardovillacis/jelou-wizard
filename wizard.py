@@ -84,9 +84,11 @@ class JelouWizard():
         try:
             formatted = "No packages"
             business_info_dict = self.basic_business_info()
+            business_info = self._format_answers(business_info_dict)
             workflow_info_dict = self.workflow_business_info()
             workflow_info = self._format_answers(workflow_info_dict)
-            business_type = self.check_business_info(business_info=business_info)
+            business_info += "\n"+ workflow_info
+            business_type = self.check_business_info(business_info=workflow_info)
             if business_type == BusinessType.e_commerce:
                 ebusiness_personality = self.ecommerce_personality(ai_tone=business_info_dict.get("¿Cual quieres que sea el tono de conversación?"))
                 ebusiness_context = f"Context: \"{workflow_info}"
@@ -109,9 +111,9 @@ class JelouWizard():
             raise 
 
     def basic_business_info(self):
+        #Quite pregunta de ubicación puede ir en knowledge/mcp
         questions = [{"question":"Me podrias describir tu negocio?","required":True},
         {"question":"Que vendes? Como lo vendes?"},
-        {"question":"Me podrias decir la ubicación/ubicaciones de tu negocio?","required":True},
         {"question":"Qué es lo que hace tu negocio diferente?"},
         {"question":"¿Con que frases saludas a tus clientes? ¿Cómo quieres que se presente el Agente IA a tus clientes?"},
         {"question":"¿Con que frases te despides a tus clientes?"}, 
