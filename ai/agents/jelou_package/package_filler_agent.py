@@ -9,8 +9,8 @@ class PackageFillerAgent(StructuredAnthropicChat):
          
          **Important**
          Ask in spanish.
-         Ask each required value one by one first.
-         After asking about all required values then tell to the user all posible optional values and then ask the user if he wants to add values to them""")
+         Ask each REQUIRED value one by one first.
+         After getting an answer about all required values then tell to the user all posible optional inputs and then ask the user if he wants to add values to them""")
         self.response_format = PackageInputsStructure
 
     

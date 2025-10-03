@@ -1,7 +1,6 @@
 from __future__ import annotations
 import asyncio
 import httpx
-from wizard import JelouWizard
 import logging
 from opencode_ai import Opencode
 logging.getLogger("mcp_use").setLevel(logging.CRITICAL)
@@ -15,7 +14,7 @@ def test() -> None:
         id=session.id,
         model_id="claude-sonnet-4-5-20250929",
         provider_id="anthropic",
-        parts=[{"type": "text", "text": "Show me zabyca workflow"}],
+        parts=[{"type": "text", "text": "Show me zabyca .wf file content(not summary, I need code)"}],
         timeout=httpx.Timeout(60000.0)
     )
     show_opencode_response(show_workflow_response)
