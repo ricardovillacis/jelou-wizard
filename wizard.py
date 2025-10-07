@@ -61,7 +61,6 @@ class JelouWizard():
         one_day = datetime.timedelta(days=1)
 
         cache_map = [
-            ("smb-databases-package", "smb-databases-package"),
             ("package-conversational-eco", "package-conversational-eco"),
             ("payment_method", "payment_method_package"),
         ]
@@ -96,8 +95,6 @@ class JelouWizard():
                 packages[0]["info"].updated_slots["personality"] = ebusiness_personality
                 packages[0]["info"].updated_slots["context"] = ebusiness_context
                 formatted_packages = self.format_packages_as_calls(packages)
-                d_package = self._package_cache["smb-databases-package"][1]
-                formatted =f"Paquete {d_package.name} con inputs {{}} y con output sin output."
                 formatted_packages.insert(0,formatted)
                 return self.create_ecommerce_workflow(formatted_packages)
 
